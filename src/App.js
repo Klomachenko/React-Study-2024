@@ -1,10 +1,11 @@
+import { useState } from 'react';
 import './App.css';
 import Box from './component/Box';
 
 const choice = {
   rock: {
     name: 'Rock',
-    img: 'https://static.wikia.nocookie.net/sonsoftheforest_gamepedia_en/images/f/fe/RockThumb.png/revision/latest?cb=20230516015144',
+    img: 'https://t3.ftcdn.net/jpg/02/93/71/22/360_F_293712283_EGPqlm1bxpH0ZnrngyjRBol9GnJm2ST7.jpg',
   },
   scissors: {
     name: 'Scissors',
@@ -17,15 +18,17 @@ const choice = {
 };
 
 function App() {
+  const [userSelect, setUserSelect] = useState(null);
+
   const play = (userChoice) => {
-    console.log('선택됨', userChoice);
+    setUserSelect(choice[userChoice]);
   };
 
   return (
     <div>
       <div className='main'>
-        <Box title='you' />
-        <Box title='computer' />
+        <Box title='you' item={userSelect} />
+        {/* <Box title='computer' /> */}
       </div>
 
       <div className='main'>
