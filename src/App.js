@@ -30,8 +30,6 @@ function App() {
   };
 
   const judgement = (user, computer) => {
-    console.log(user, computer);
-
     if (user.name === computer.name) {
       return 'tie';
     } else if (user.name === 'Rock')
@@ -48,6 +46,7 @@ function App() {
     let final = itemArray[randomItem];
     return choice[final];
   };
+
   return (
     <div>
       <div className='main'>
