@@ -12,3 +12,15 @@
   justify-content: center;
   gap: 20px;
 }
+
+.win {
+  border: 5px solid green;
+}
+
+.lose {
+  border: 5px solid red;
+}
+
+.tie {
+  border: 5px solid black;
+}
