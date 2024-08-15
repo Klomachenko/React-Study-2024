@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import Box from './component/Box';
 
@@ -17,50 +17,68 @@ const choice = {
   },
 };
 
-function App() {
-  const [userSelect, setUserSelect] = useState(null);
-  const [computerSelect, setComputerSelect] = useState(null);
-  const [result, setResult] = useState('');
-
-  const play = (userChoice) => {
-    setUserSelect(choice[userChoice]);
-    let computerChoice = randomChoice();
-    setComputerSelect(computerChoice);
-    setResult(judgement(choice[userChoice], computerChoice));
+class App extends Component {
+  state = {
+    userSelect: null,
+    computerSelect: null,
+    result: '',
   };
 
-  const judgement = (user, computer) => {
+  play = (userChoice) => {
+    const userSelect = choice[userChoice];
+    const computerSelect = this.randomChoice();
+    const result = this.judgement(userSelect, computerSelect);
+
+    this.setState({
+      userSelect,
+      computerSelect,
+      result,
+    });
+  };
+
+  judgement = (user, computer) => {
     if (user.name === computer.name) {
       return 'tie';
-    } else if (user.name === 'Rock')
+    } else if (user.name === 'Rock') {
       return computer.name === 'Scissors' ? 'win' : 'lose';
-    else if (user.name === 'Scissors')
+    } else if (user.name === 'Scissors') {
       return computer.name === 'Paper' ? 'win' : 'lose';
-    else if (user.name === 'Paper')
+    } else if (user.name === 'Paper') {
       return computer.name === 'Rock' ? 'win' : 'lose';
+    }
   };
 
-  const randomChoice = () => {
-    let itemArray = Object.keys(choice);
-    let randomItem = Math.floor(Math.random() * itemArray.length);
-    let final = itemArray[randomItem];
+  randomChoice = () => {
+    const itemArray = Object.keys(choice);
+    const randomItem = Math.floor(Math.random() * itemArray.length);
+    const final = itemArray[randomItem];
     return choice[final];
   };
 
-  return (
-    <div>
-      <div className='main'>
-        <Box title='you' item={userSelect} result={result} />
-        <Box title='computer' item={computerSelect} result={result} />
-      </div>
+  render() {
+    return (
+      <div>
+        <div className='main'>
+          <Box
+            title='you'
+            item={this.state.userSelect}
+            result={this.state.result}
+          />
+          <Box
+            title='computer'
+            item={this.state.computerSelect}
+            result={this.state.result}
+          />
+        </div>
 
-      <div className='main'>
-        <button onClick={() => play('scissors')}>가위</button>
-        <button onClick={() => play('rock')}>바위</button>
-        <button onClick={() => play('paper')}>보</button>
+        <div className='main'>
+          <button onClick={() => this.play('scissors')}>가위</button>
+          <button onClick={() => this.play('rock')}>바위</button>
+          <button onClick={() => this.play('paper')}>보</button>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;

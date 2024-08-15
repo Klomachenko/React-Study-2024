@@ -1,24 +1,30 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const Box = (props) => {
-  let result;
-  if (
-    props.title === 'computer' &&
-    props.result !== 'tie' &&
-    props.result !== ''
-  ) {
-    result = props.result === 'win' ? 'lose' : 'win ';
-  } else {
-    result = props.result;
+class Box extends Component {
+  render() {
+    let result;
+    if (
+      this.props.title === 'computer' &&
+      this.props.result !== 'tie' &&
+      this.props.result !== ''
+    ) {
+      result = this.props.result === 'win' ? 'lose' : 'win';
+    } else {
+      result = this.props.result;
+    }
+
+    return (
+      <div className={`box ${result}`}>
+        <h1>{this.props.title}</h1>
+        <img
+          className='item-img'
+          src={this.props.item && this.props.item.img}
+          alt={this.props.item && this.props.item.name}
+        />
+        <h2>{result}</h2>
+      </div>
+    );
   }
-
-  return (
-    <div className={`box ${result}`}>
-      <h1>{props.title}</h1>
-      <img className='item-img' src={props.item && props.item.img} />
-      <h2>{result}</h2>
-    </div>
-  );
-};
+}
 
 export default Box;
